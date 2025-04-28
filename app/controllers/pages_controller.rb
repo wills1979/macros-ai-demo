@@ -8,6 +8,8 @@ class PagesController < ApplicationController
     @the_description = params.fetch("description_param")
 
     c = OpenAI::Chat.new
+    c.model = "o3"
+    
     c.system("You are an expert nutritionist. The user will give you an image and/or desciption of a meal. Your job is to estimate the macronutrients in it.")
 
     c.user("Here is an image:", image: @the_image)
@@ -57,6 +59,7 @@ class PagesController < ApplicationController
     @g_protein = @structured_output.fetch("protein")
     @g_fat = @structured_output.fetch("fat")
     @kcal = @structured_output.fetch("total_calories")
+    @notes = @structured_output.fetch("notes")
 
     render({ :template => "pages_templates/results" })
   end
