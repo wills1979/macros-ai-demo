@@ -10,7 +10,9 @@ class PagesController < ApplicationController
     c = OpenAI::Chat.new
     c.system("You are an expert nutritionist. The user will give you an image and/or desciption of a meal. Your job is to estimate the macronutrients in it.")
 
+    c.user("Here is an image:", image: @the_image)
     c.user(@the_description)
+
     c.schema = '{
       "name": "nutrition_info",
       "schema": {
